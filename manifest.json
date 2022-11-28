@@ -1,6 +1,6 @@
 {
-  "name": "cold email generator",
-  "description": "Write a cold email in seconds!",
+  "name": "Reddit Karma Farmer",
+  "description": "Write a good story in seconds!",
   "version": "1.0",
   "manifest_version": 3,
   "icons": {
@@ -11,7 +11,7 @@
   },
   "action": {
     "default_popup": "index.html",
-    "default_title": "Generate cold email"
+    "default_title": "Generate unique stories"
   },
   "background": {
     "service_worker": "scripts/contextMenuServiceWorker.js"

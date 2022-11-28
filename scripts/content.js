@@ -1,50 +1,49 @@
 const insert = (content) => {
     // Find gmail editor input selection
-    const elements = document.getElementsByClassName('editable');
+    const elements = document.getElementsByClassName('droid');
 
     if (elements.length === 0) {
-        console.log('length 0');
         return;
     }
 
     const element = elements[0];
 
     // Grab the first div tag so we can replace it
-    const divToRemove = element;
-    divToRemove.remove();
+    const pToRemove = element.childNodes[0];
+    pToRemove.remove();
 
     // Split content by \n
     const splitContent = content.split('\n');
 
     // Wrap in div tags
     splitContent.forEach((content) => {
-        const div = document.createElement('div');
+        const p = document.createElement('p');
 
         if (content === '') {
             const br = document.createElement('br');
-            div.appendChild(br);
+            p.appendChild(br);
         } else {
-            div.textContent = content;
+            p.textContent = content;
         }
+        
+        // Insert into HTML one at a time
+        element.appendChild(p);
     })
 
-    // Insert into HTML one at a time
-    element.appendChild(div);
+    // On success return true
+    return true;
 };
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    (request, sender, sendResponse) => {
+    if (request.message === 'inject') {
+        const { content } = request;
+        
+        const result = insert(content);
 
-        if (request.message === 'inject') {
-            const { content } = request;
-            
-            const result = insert(content);
-
-            if (!result) {
-                sendResponse({ status: 'failed' });
-            }
-            
-            sendResponse({ status: 'success' });
+        if (!result) {
+            sendResponse({ status: 'failed' });
         }
+        
+        sendResponse({ status: 'success' });
     }
 });

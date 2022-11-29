@@ -3,7 +3,7 @@ const generateCompletionAction = async (info) => {
         sendMessage('generating...');
 
         const { selectionText } = info;
-        const basePromptPrefix = `Write an email that describes the benefits of `;
+        const basePromptPrefix = `Write a story for the r/TrueOffMyChest subreddit about a dad who leaves his wife.`;
 
         const baseCompletion = await generate(`${basePromptPrefix}${selectionText}`);
         console.log(baseCompletion.text);
@@ -66,7 +66,7 @@ const generate = async (prompt) => {
 
 chrome.contextMenus.create({
     id: 'context-run',
-    title: 'Generate cold email',
+    title: 'Generate reddit story',
     contexts: ['selection'],
 });
 
